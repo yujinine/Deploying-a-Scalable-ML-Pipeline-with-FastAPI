@@ -3,6 +3,7 @@ from sklearn.metrics import fbeta_score, precision_score, recall_score
 from ml.data import process_data
 # TODO: add necessary import
 from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
 
 
 # Optional: implement hyperparameter tuning.
@@ -21,8 +22,13 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
+
+        # Scale the training data
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train)
+    
     # Create a logistic regression model
-    model = LogisticRegression()
+    model = LogisticRegression(max_iter=1000)
 
     # Train the model using the training data
     model.fit(X_train, y_train)
@@ -149,7 +155,7 @@ def performance_on_categorical_slice(
     recall : float
     fbeta : float
     """
-    
+
     # Filter the data for the specific slice
     data_slice = data[data[column_name] == slice_value]
     # The line above selects only the rows from `data` where the value in `column_name`

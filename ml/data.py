@@ -7,7 +7,7 @@ def process_data(
     encoder=None, lb=None
 ):
     """
-    Process data for ML pipeline.
+    Process data for ML pipeline
 
     Encodes categorical features and labels for training or inference.
 

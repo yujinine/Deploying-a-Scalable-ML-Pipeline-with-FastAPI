@@ -1,0 +1,3 @@
+[flake8]
+exclude = myenv/*, */site-packages/*
+max-line-length = 79

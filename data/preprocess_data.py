@@ -4,7 +4,7 @@ from ml.data import process_data
 # Load the data
 df = pd.read_csv('data/census.csv')
 
-# Define the categorical features.
+# Define the categorical features
 categorical_features = [
     'workclass', 'education', 'marital-status', 'occupation',
     'relationship', 'race', 'sex', 'native-country'

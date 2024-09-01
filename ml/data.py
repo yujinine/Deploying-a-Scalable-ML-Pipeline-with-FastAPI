@@ -55,5 +55,5 @@ def process_data(
 
 
 def apply_label(inference):
-    """Convert binary label to string."""
+    """Convert binary label to string"""
     return ">50K" if inference[0] == 1 else "<=50K"

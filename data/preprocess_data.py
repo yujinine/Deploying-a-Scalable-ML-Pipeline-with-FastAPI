@@ -19,5 +19,5 @@ X, y, encoder, lb = process_data(
 )
 
 # Print the shape of the processed data
-print("Shape of X:", X.shape)
-print("Shape of y:", y.shape)
+print(("Shape of X:", X.shape))
+print(("Shape of y:", y.shape))

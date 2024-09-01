@@ -8,5 +8,5 @@ df = pd.read_csv('data/census.csv')
 X, y, encoder, lb = process_data(X = df, categorical_features=['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country'], label = 'salary', training=True)
 
 #print the output shapes
-print(X.shape)
-print(y[:5])
+print((X.shape))
+print((y[:5]))

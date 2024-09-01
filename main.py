@@ -51,7 +51,7 @@ async def post_inference(data: Data):
     # DO NOT MODIFY: clean up the dict to turn it into a Pandas DataFrame.
     # The data has names with hyphens and Python does not allow those as variable names.
     # Here it uses the functionality of FastAPI/Pydantic/etc to deal with this.
-    data = {k.replace("_", "-"): [v] for k, v in data_dict.items()}
+    data = {k.replace("_", "-"): [v] for k, v in list(data_dict.items())}
     data = pd.DataFrame.from_dict(data)
 
     cat_features = [

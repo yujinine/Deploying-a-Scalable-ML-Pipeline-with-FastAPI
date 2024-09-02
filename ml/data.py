@@ -1,31 +1,11 @@
-import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
-
+import numpy as np
+import pandas as pd
 
 def process_data(
-    X, categorical_features=None, label=None, training=True,
-    encoder=None, lb=None
+    X, categorical_features=None, label=None, training=True, encoder=None, lb=None
 ):
-    """
-    Process data for ML pipeline
-
-    Encodes categorical features and labels for training or inference.
-
-    Inputs:
-    - X : pd.DataFrame, features and label
-    - categorical_features: list[str], names of categorical features
-    - label : str, name of the label column
-    - training : bool, True for training mode
-    - encoder : OneHotEncoder, used in inference mode
-    - lb : LabelBinarizer, used in inference mode
-
-    Returns:
-    - X : np.array, processed data
-    - y : np.array, processed labels (empty if no label)
-    - encoder : OneHotEncoder, fitted encoder
-    - lb : LabelBinarizer, fitted label binarizer
-    """
-
+    """ Process data for ML pipeline """
     if categorical_features is None:
         categorical_features = []
 
@@ -39,9 +19,9 @@ def process_data(
     X_continuous = X.drop(*[categorical_features], axis=1).values
 
     if training:
-        encoder = OneHotEncoder(sparse_output=False, handle_unknown="ignore")
-        lb = LabelBinarizer()
+        encoder = OneHotEncoder(handle_unknown="ignore")
         X_categorical = encoder.fit_transform(X_categorical)
+        lb = LabelBinarizer()
         y = lb.fit_transform(y.values).ravel()
     else:
         X_categorical = encoder.transform(X_categorical)
@@ -50,9 +30,18 @@ def process_data(
         except AttributeError:
             pass
 
-    X = np.concatenate([X_continuous, X_categorical], axis=1)
-    return X, y, encoder, lb
+    # Convert sparse matrix to dense if needed
+    if isinstance(X_categorical, np.ndarray):
+        X_categorical = X_categorical
+    else:
+        X_categorical = X_categorical.toarray()
 
+    X = np.concatenate([X_continuous, X_categorical], axis=1)
+    
+    print(f"Processed X type: {type(X)}")  # Debugging step to check type of X
+    print(f"Processed X shape: {X.shape}")  # Debugging step to check shape of X
+
+    return X, y, encoder, lb
 
 def apply_label(inference):
     """Convert binary label to string"""

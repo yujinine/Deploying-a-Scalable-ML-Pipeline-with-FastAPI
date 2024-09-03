@@ -5,30 +5,38 @@ import pandas as pd
 def process_data(
     X, categorical_features=None, label=None, training=True, encoder=None, lb=None
 ):
-    """ Process data for ML pipeline """
+    """ Process the data used in the machine learning pipeline. """
+
     if categorical_features is None:
         categorical_features = []
 
+    # Separate the feature columns from the label
     if label is not None:
         y = X[label]
         X = X.drop([label], axis=1)
     else:
         y = np.array([])
 
-    X_categorical = X[categorical_features].values
-    X_continuous = X.drop(*[categorical_features], axis=1).values
+    print("Columns in DataFrame:", X.columns.tolist())
 
-    if training:
-        encoder = OneHotEncoder(handle_unknown="ignore")
-        X_categorical = encoder.fit_transform(X_categorical)
+    # Check if all categorical features exist in the DataFrame
+    for feature in categorical_features:
+        if feature not in X.columns:
+            raise KeyError(f"{feature} not found in columns")
+
+    X_categorical = X[categorical_features].values
+    X_continuous = X.drop(columns=categorical_features, axis=1).values
+
+    # Encode the categorical features using the encoder or OneHotEncoder if encoder is None
+    encoder = encoder if encoder is not None else OneHotEncoder(handle_unknown="ignore")
+    X_categorical = encoder.fit_transform(X_categorical) if training else encoder.transform(X_categorical)
+
+    # If training, create and fit the label binarizer
+    if lb is None and training:
         lb = LabelBinarizer()
         y = lb.fit_transform(y.values).ravel()
-    else:
-        X_categorical = encoder.transform(X_categorical)
-        try:
-            y = lb.transform(y.values).ravel()
-        except AttributeError:
-            pass
+    elif lb is not None and not training:
+        y = lb.transform(y.values).ravel()
 
     # Convert sparse matrix to dense if needed
     if isinstance(X_categorical, np.ndarray):
@@ -37,9 +45,9 @@ def process_data(
         X_categorical = X_categorical.toarray()
 
     X = np.concatenate([X_continuous, X_categorical], axis=1)
-    
-    print(f"Processed X type: {type(X)}")  # Debugging step to check type of X
-    print(f"Processed X shape: {X.shape}")  # Debugging step to check shape of X
+
+    print("Processed X type:", type(X))
+    print("Processed X shape:", X.shape)
 
     return X, y, encoder, lb
 

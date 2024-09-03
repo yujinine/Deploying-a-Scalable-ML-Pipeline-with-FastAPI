@@ -10,8 +10,8 @@ data = pd.read_csv('./data/census.csv')
 
 # Define categorical features outside of functions to avoid formatting issues
 cat_features = [
-    "workclass", "education", "marital-status", "occupation", "relationship",
-    "race", "sex", "native-country"
+    "workclass", "education", "marital_status", "occupation", "relationship",
+    "race", "sex", "native_country"
 ]
 
 # Test 1: Check if the processed data returns the expected structure and type

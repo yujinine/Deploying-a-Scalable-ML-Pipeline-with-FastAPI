@@ -6,8 +6,8 @@ df = pd.read_csv('data/census.csv')
 
 # Define the categorical features
 categorical_features = [
-    'workclass', 'education', 'marital-status', 'occupation',
-    'relationship', 'race', 'sex', 'native-country'
+    'workclass', 'education', 'marital_status', 'occupation',
+    'relationship', 'race', 'sex', 'native_country'
 ]
 
 # Preprocess the data

@@ -1,12 +1,10 @@
-from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 import numpy as np
 import pandas as pd
+from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
-def process_data(
-    X, categorical_features=None, label=None, training=True, encoder=None, lb=None
-):
+def process_data(X, categorical_features=None, label=None, training=True, encoder=None, lb=None):
     """ Process the data used in the machine learning pipeline. """
-
+    
     if categorical_features is None:
         categorical_features = []
 
@@ -52,5 +50,5 @@ def process_data(
     return X, y, encoder, lb
 
 def apply_label(inference):
-    """Convert binary label to string"""
+    """ Convert binary label to string """
     return ">50K" if inference[0] == 1 else "<=50K"

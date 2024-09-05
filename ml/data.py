@@ -18,7 +18,7 @@ def process_data(
     # Standardize column names by replacing underscores with hyphens
     X.columns = X.columns.str.replace('_', '-')  # This is the new line added
 
-    # Separate the feature columns from the label.
+    # Separate the feature columns from the label
     if label is not None:
         y = X[label]
         X = X.drop([label], axis=1)

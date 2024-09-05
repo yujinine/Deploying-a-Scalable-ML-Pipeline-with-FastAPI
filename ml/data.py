@@ -2,13 +2,23 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
-def process_data(X, categorical_features=None, label=None, training=True, encoder=None, lb=None):
+def process_data(
+    X, categorical_features=None, label=None, training=True, encoder=None, lb=None
+):
     """ Process the data used in the machine learning pipeline. """
-    
+
     if categorical_features is None:
         categorical_features = []
 
-    # Separate the feature columns from the label
+    # Debug print statements
+    print("DataFrame X before any operations:")
+    print(X.head())  # This prints the first few rows of the DataFrame
+    print("Columns in DataFrame before any operations:", X.columns.tolist())
+
+    # Standardize column names by replacing underscores with hyphens
+    X.columns = X.columns.str.replace('_', '-')  # This is the new line added
+
+    # Separate the feature columns from the label.
     if label is not None:
         y = X[label]
         X = X.drop([label], axis=1)

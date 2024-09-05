@@ -20,7 +20,7 @@ data = {
     "fnlgt": 173986,
     "education": "HS-grad",
     "education-num": 10,
-    "marital_status": "Married-civ-spouse",
+    "marital-status": "Married-civ-spouse",
     "occupation": "Prof-specialty",
     "relationship": "Husband",
     "race": "White",
@@ -28,7 +28,7 @@ data = {
     "capital-gain": 0,
     "capital-loss": 0,
     "hours-per-week": 40,
-    "native_country": "United-States"
+    "native-country": "United-States"
 }
 
 

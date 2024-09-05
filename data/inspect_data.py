@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Load the data
-df = pd.read_csv('census.csv')
+df = pd.read_csv('data/census.csv')
 
 # Inspect the first few rows
 print(df.head())

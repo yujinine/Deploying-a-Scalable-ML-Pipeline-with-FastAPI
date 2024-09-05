@@ -5,7 +5,7 @@ import pandas as pd
 df = pd.read_csv('data/census.csv')
 
 # call the function
-X, y, encoder, lb = process_data(X = df, categorical_features=['workclass', 'education', 'marital_status', 'occupation', 'relationship', 'race', 'sex', 'native_country'], label = 'salary', training=True)
+X, y, encoder, lb = process_data(X = df, categorical_features=['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country'], label = 'salary', training=True)
 
 #print the output shapes
 print((X.shape))
